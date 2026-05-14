@@ -98,7 +98,7 @@ export default function About() {
                 poster="https://res.cloudinary.com/dyqr2osxh/image/upload/v1778779845/video-poster_wsjrxp.jpg"
                 playsInline
               >
-                <source src="/videos/about.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/dyqr2osxh/video/upload/v1778782037/about_n7wfmc.mp4" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
             </div>
