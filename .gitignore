@@ -34,3 +34,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#public
+/public
+
+# qwen
+/qwen_free_cli
+project.md
+roadmap.md
+/.qwen
+/memory
+design-tokens.md
+INDEX.md
