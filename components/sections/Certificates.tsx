@@ -58,11 +58,11 @@ export default function Certificates() {
         </motion.div>
 
         {/* Карусель */}
-        <div className="relative group">
+        <div className="relative group overflow-hidden touch-pan-x">
           <motion.div
-            className="overflow-hidden"
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0}
             onDragEnd={(e, info) => {
               if (info.offset.x > 50) prevSlide();
               else if (info.offset.x < -50) nextSlide();
