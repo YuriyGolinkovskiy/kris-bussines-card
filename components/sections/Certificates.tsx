@@ -29,12 +29,14 @@ export default function Certificates() {
     return () => window.removeEventListener('resize', updateVisibleCount);
   }, []);
 
+  const maxIndex = Math.max(0, certificates.length - visibleCount);
+
   const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1) % (certificates.length - visibleCount + 1));
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
   };
 
   const prevSlide = () => {
-    setCurrentIndex((prev) => (prev - 1 + certificates.length - visibleCount + 1) % (certificates.length - visibleCount + 1));
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
   };
 
   return (
@@ -56,8 +58,16 @@ export default function Certificates() {
         </motion.div>
 
         {/* Карусель */}
-        <div className="relative">
-          <div className="overflow-hidden">
+        <div className="relative group">
+          <motion.div
+            className="overflow-hidden"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            onDragEnd={(e, info) => {
+              if (info.offset.x > 50) prevSlide();
+              else if (info.offset.x < -50) nextSlide();
+            }}
+          >
             <div
               className="flex transition-transform duration-500 ease-out"
               style={{ transform: `translateX(-${currentIndex * (100 / visibleCount)}%)` }}
@@ -84,19 +94,19 @@ export default function Certificates() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Кнопки навигации */}
           <button
             onClick={prevSlide}
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-surface p-2 rounded-full shadow-lg border border-decor/30 hover:bg-accent hover:text-white transition-colors hidden md:block"
+            className="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 bg-surface/90 p-2 rounded-full shadow-lg border border-decor/30 hover:bg-accent hover:text-white transition-colors z-10"
             aria-label="Предыдущий"
           >
             <ChevronLeft size={20} />
           </button>
           <button
             onClick={nextSlide}
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-surface p-2 rounded-full shadow-lg border border-decor/30 hover:bg-accent hover:text-white transition-colors hidden md:block"
+            className="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 bg-surface/90 p-2 rounded-full shadow-lg border border-decor/30 hover:bg-accent hover:text-white transition-colors z-10"
             aria-label="Следующий"
           >
             <ChevronRight size={20} />
