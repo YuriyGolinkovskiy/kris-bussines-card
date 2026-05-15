@@ -63,10 +63,12 @@ export default function Certificates() {
             drag="x"
             dragConstraints={{ left: 0, right: 0 }}
             dragElastic={0}
+            dragMomentum={false}
             onDragEnd={(e, info) => {
               if (info.offset.x > 50) prevSlide();
               else if (info.offset.x < -50) nextSlide();
             }}
+            style={{ x: 0 }}
           >
             <div
               className="flex transition-transform duration-500 ease-out"
@@ -83,13 +85,14 @@ export default function Certificates() {
                     onClick={() => setSelectedIndex(certificates.findIndex((c) => c.id === cert.id))}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <Image
-                      src={cert.src}
-                      alt={cert.alt}
-                      width={300}
-                      height={400}
-                      className="w-full aspect-[3/4] object-cover"
-                    />
+                    <div className="relative w-full aspect-[3/4]">
+                      <Image
+                        src={cert.src}
+                        alt={cert.alt}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
                   </motion.div>
                 </div>
               ))}
